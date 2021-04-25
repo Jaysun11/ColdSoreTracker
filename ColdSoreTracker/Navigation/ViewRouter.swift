@@ -8,11 +8,18 @@
 import SwiftUI
 
 enum Page {
+
      case home
      case calendar
      case add
      case onboarding
      case launch
+     case settings
+    case changeName
+    case aboutUs
+    case privacypolicy
+    case change
+    
  }
 
 class ViewRouter: ObservableObject {

@@ -46,6 +46,8 @@ struct Menubar: View{
                 .frame(width: width/7-6 , height: width/7-6)
                 .foregroundColor(Color(hue: 0.482, saturation: 1.0, brightness: 1.0)).onTapGesture {
                     withAnimation {
+                        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                    impactHeavy.impactOccurred()
                     viewRouter.currentPage = .add
                         
                     }
@@ -57,6 +59,8 @@ struct Menubar: View{
         
             
             }.padding(.vertical, 8.0).background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color(red: 0.9607843137254902, green: 0.9490196078431372, blue: 0.9607843137254902)/*@END_MENU_TOKEN@*/).clipShape(Capsule()).shadow(radius: 10, x:0, y:5).position(x: width/2, y: height - width/8)
+            
+            
         //END OF MENU BAR ------------------------------
         
         
@@ -85,6 +89,8 @@ struct TabBarIcon: View {
                
         }.onTapGesture {
             withAnimation{
+                let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                            impactHeavy.impactOccurred()
            viewRouter.currentPage = assignedPage
             }
         }.foregroundColor(viewRouter.currentPage != assignedPage ? .gray : .black)

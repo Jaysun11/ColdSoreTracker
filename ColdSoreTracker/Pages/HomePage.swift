@@ -27,14 +27,27 @@ struct HomePage: View {
                     
                     VStack(alignment: .leading){
                         HStack{
+                        HStack{
                             Text("Hey")
                                 .font(.largeTitle).bold()
                             Text("\(UserDefaults.standard.string(forKey: "name") ?? "Name")")
                                 .font(.largeTitle).bold().foregroundColor(Color(#colorLiteral(red: 0, green: 1, blue: 0.8056185842, alpha: 1)))
                         }
+                            Spacer()
+                            Image(systemName: "gearshape.fill")
+                                 .resizable()
+                                 .aspectRatio(contentMode: .fit)
+                                .frame(width: geowidth/11 , height: geowidth/11).offset(x: -20).foregroundColor(Color.gray).shadow(color: .black, radius: 0).onTapGesture {
+                                    withAnimation {
+                                        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                                    impactHeavy.impactOccurred()
+                                    viewRouter.currentPage = .settings
+                                        
+                                    }
+                                }
+                        }
                         
-                        Text("Cold Sore Tracker")
-                            .font(.title3).bold().padding(.bottom, 10).padding(.top, 5)
+                        
                         
                         
                     }
@@ -54,7 +67,7 @@ struct HomePage: View {
                     
                     ZStack(){
                         
-                        Rectangle().frame(height: (geometry.size.height/2.4 + CGFloat(numDifferentSores*65))).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white)
+                        Rectangle().frame(height: (geometry.size.height/2.5 + CGFloat(numDifferentSores*40))).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white)
                         
                         Insights()
                         

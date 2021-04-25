@@ -23,7 +23,8 @@ struct AddMenuContent: View {
                 
                 Text("When was this cold sore?").font(.title2).padding(.top, 50)
                 
-                DatePicker("", selection: $newSoreDate, displayedComponents: .date).frame(width: 330) .datePickerStyle(WheelDatePickerStyle()).foregroundColor(.black)
+                DatePicker("", selection: $newSoreDate, in: ...Date(), displayedComponents: .date).frame(width: 330) .datePickerStyle(WheelDatePickerStyle()).foregroundColor(.black)
+                
                 
                 Text("What caused it?").font(.title2)
                 
@@ -51,7 +52,7 @@ struct AddMenuContent: View {
         
         //Save Cold Sore
         saveColdSore(date: date, reason: reason)
-        
+        getNumUniques()
         
         withAnimation(){
             
@@ -97,6 +98,28 @@ struct AddMenuContent: View {
             index = index + 1
         }
         return smallestIndex;
+    }
+    
+    func getNumUniques(){
+        
+        let mappedItems = coldSoreObjects.map { ($0.reason, 1) }
+        let _counts = Dictionary(mappedItems, uniquingKeysWith: +)
+        var index = 0
+        
+        
+        for reason in reasons {
+            if _counts[reason] != nil {
+
+                index+=1
+                    
+            } else {
+               
+            }
+        }
+
+        numDifferentSores = index;
+       
+        UserDefaults.standard.set(numDifferentSores, forKey: "numUniqueSores")
     }
     
 }

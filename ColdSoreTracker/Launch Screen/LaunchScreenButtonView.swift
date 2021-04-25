@@ -25,7 +25,7 @@ struct LaunchScreenButtonView: View {
                 
                 label: {
                 Text("Continue").fontWeight(.heavy).padding().frame(width: 150, height: 44).background(Color.black.opacity(0.27)).cornerRadius(12).padding(.horizontal).foregroundColor(.white)
-            })
+                })
             
         } else if (selection == 4){
             
@@ -39,9 +39,18 @@ struct LaunchScreenButtonView: View {
     }
     
    func buttonAction(){
-        withAnimation{
+
+        
+       withAnimation{
+            
             if (selection < 4){
-                selection += 1
+                if (selection == 1){
+                    if (!(UserDefaults.standard.string(forKey: "name")!.isEmpty)){
+                        selection += 1
+                    }
+                } else {
+                    selection += 1
+                }
             }
 
         }

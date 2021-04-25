@@ -7,23 +7,21 @@
 
 import SwiftUI
 
+let currentCalendar = Calendar.current
+let screen = UIScreen.main.bounds
+
 struct CalendarView: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
+
     
     var body: some View {
        
-        GeometryReader { geometry in
-            VStack(alignment: .leading){
-                Text("Your Cold Sores").font(.title).bold().padding()
-                ZStack(){
-                    
-                    Rectangle().frame(height: geometry.size.height/1.32).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white)
-                    
-                    
-                }
-            }
-        }
+        
+       
+        ColdSoreCalendar(coldsores: coldSoreObjects)
+            
+        
         
         
     }

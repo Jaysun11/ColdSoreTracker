@@ -39,6 +39,7 @@ struct TabDetailsView: View {
                     
                     TextField("What should we call you?", text: $name).padding().multilineTextAlignment(.center).background(Color(#colorLiteral(red: 0.9999018312, green: 1, blue: 0.9998798966, alpha: 0.5956667945))).cornerRadius(/*@START_MENU_TOKEN@*/12.0/*@END_MENU_TOKEN@*/)
                         .onChange(of: name) { newValue in
+                            print("updated name to \(name)")
                             UserDefaults.standard.set(name, forKey: "name")
                         }
                    
@@ -51,7 +52,7 @@ struct TabDetailsView: View {
                 
                 Text("When was your last cold sore?").foregroundColor(Color.black.opacity(0.27)).multilineTextAlignment(.center)
                 
-                DatePicker("", selection: $lastSore, displayedComponents: .date).frame(width: 330) .datePickerStyle(WheelDatePickerStyle()).foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                DatePicker("", selection: $lastSore, in: ...Date(), displayedComponents: .date).frame(width: 330) .datePickerStyle(WheelDatePickerStyle()).foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                 }.onChange(of: lastSore) { newValue in
                     UserDefaults.standard.set(lastSore, forKey: "firstSoreDate")
                     print("Changed date of first sore to \(lastSore)")
