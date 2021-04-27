@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960835D126385585005565E6 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960835D026385585005565E6 /* Banner.swift */; };
 		961369DD261897E70071D98C /* ColdSoreTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961369DC261897E70071D98C /* ColdSoreTrackerApp.swift */; };
 		961369E1261897E90071D98C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 961369E0261897E90071D98C /* Assets.xcassets */; };
 		961369E4261897E90071D98C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 961369E3261897E90071D98C /* Preview Assets.xcassets */; };
@@ -21,7 +22,6 @@
 		964E77DE2619A0C200C6A631 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E77DD2619A0C200C6A631 /* CalendarView.swift */; };
 		964E77E12619A0EC00C6A631 /* AddMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E77E02619A0EC00C6A631 /* AddMenu.swift */; };
 		965527F3263513C30028845D /* PrivacyPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965527F2263513C30028845D /* PrivacyPolicy.swift */; };
-		965527F626352AAC0028845D /* ColdsoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965527F526352AAC0028845D /* ColdsoreCell.swift */; };
 		965527F8263534F40028845D /* EditSore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965527F7263534F40028845D /* EditSore.swift */; };
 		9665EE9C261B360400523A63 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665EE9B261B360400523A63 /* GradientView.swift */; };
 		9665EE9F261B394900523A63 /* PageTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665EE9E261B394900523A63 /* PageTabView.swift */; };
@@ -53,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		960835D026385585005565E6 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		961369D9261897E70071D98C /* ColdSoreTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdSoreTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		961369DC261897E70071D98C /* ColdSoreTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColdSoreTrackerApp.swift; sourceTree = "<group>"; };
 		961369E0261897E90071D98C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,7 +70,6 @@
 		964E77DD2619A0C200C6A631 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		964E77E02619A0EC00C6A631 /* AddMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMenu.swift; sourceTree = "<group>"; };
 		965527F2263513C30028845D /* PrivacyPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicy.swift; sourceTree = "<group>"; };
-		965527F526352AAC0028845D /* ColdsoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColdsoreCell.swift; sourceTree = "<group>"; };
 		965527F7263534F40028845D /* EditSore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSore.swift; sourceTree = "<group>"; };
 		9665EE9B261B360400523A63 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		9665EE9E261B394900523A63 /* PageTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabView.swift; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				96DB99CA2632C25200FC6CD3 /* CalendarElement.swift */,
-				965527F526352AAC0028845D /* ColdsoreCell.swift */,
 			);
 			path = CalendarElements;
 			sourceTree = "<group>";
@@ -200,6 +199,7 @@
 				96B5BCA726244AD9004BD46C /* AddMenuContent.swift */,
 				964E77DD2619A0C200C6A631 /* CalendarView.swift */,
 				964E77DA2619A08E00C6A631 /* HomePage.swift */,
+				960835D026385585005565E6 /* Banner.swift */,
 				96F807E2263198C20058E488 /* Settings.swift */,
 				96F807E426319BD90058E488 /* ChangeName.swift */,
 				96F807E62631AFF10058E488 /* AboutUs.swift */,
@@ -294,7 +294,6 @@
 				966C14B8261AF9CD0024DABD /* MenuBar.swift in Sources */,
 				962619E126313EDD00BA4537 /* TypesOfSoresChart.swift in Sources */,
 				96671B482618AA40005EDBB3 /* ViewRouter.swift in Sources */,
-				965527F626352AAC0028845D /* ColdsoreCell.swift in Sources */,
 				962E1C1C261B4594002AB919 /* LaunchScreenButtonView.swift in Sources */,
 				964E77E12619A0EC00C6A631 /* AddMenu.swift in Sources */,
 				96821F19261AEF280010E448 /* ProfileSetup.swift in Sources */,
@@ -302,6 +301,7 @@
 				962619E8263164C600BA4537 /* ColdSoreCalendar.swift in Sources */,
 				96B5BCAC262452E7004BD46C /* Launch Screen.swift in Sources */,
 				96EF2856261C551300E806FD /* Insights.swift in Sources */,
+				960835D126385585005565E6 /* Banner.swift in Sources */,
 				965527F8263534F40028845D /* EditSore.swift in Sources */,
 				962E1C19261B3D9C002AB919 /* Data.swift in Sources */,
 				96F807E3263198C20058E488 /* Settings.swift in Sources */,

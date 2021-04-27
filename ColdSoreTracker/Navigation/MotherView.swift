@@ -18,9 +18,10 @@ struct MotherView: View {
                 case .onboarding:
                     ProfileSetup()
                 case .home:
-                    HomePage().transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+                    HomePage().transition(.opacity)
+                        
                 case .calendar:
-                    CalendarView().transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))).frame(width: width, height: height, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)//.equatable()
+                    CalendarView().transition(.opacity).frame(width: width, height: height, alignment: .center)//.equatable()
                   
                 case .add:
                     AddMenu().transition(.opacity)
@@ -36,7 +37,7 @@ struct MotherView: View {
                     EditSore().transition(.opacity)
                 }
     
-                if (viewRouter.currentPage != .launch && viewRouter.currentPage != .settings && viewRouter.currentPage != .changeName && viewRouter.currentPage != .aboutUs && viewRouter.currentPage != .privacypolicy && viewRouter.currentPage != .change){
+                if (viewRouter.currentPage != .launch && viewRouter.currentPage != .settings && viewRouter.currentPage != .changeName && viewRouter.currentPage != .aboutUs && viewRouter.currentPage != .privacypolicy && viewRouter.currentPage != .change && viewRouter.currentPage != .add){
                     MenuBar()
                 }
                 

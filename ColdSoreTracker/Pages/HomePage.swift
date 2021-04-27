@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct HomePage: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
-     private var name : String = "Unknown"
+    private var name : String = "Unknown"
     
     
     var body: some View {
@@ -18,65 +19,57 @@ struct HomePage: View {
         
         GeometryReader { geometry in
             let geowidth = geometry.size.width
+            let size : CGFloat = CGFloat(330 + (numDifferentSores * 40))
             
             ScrollView{
-                
-                
+               
                 VStack(alignment: .leading) {
                     
                     
                     VStack(alignment: .leading){
                         HStack{
-                        HStack{
-                            Text("Hey")
-                                .font(.largeTitle).bold()
-                            Text("\(UserDefaults.standard.string(forKey: "name") ?? "Name")")
-                                .font(.largeTitle).bold().foregroundColor(Color(#colorLiteral(red: 0, green: 1, blue: 0.8056185842, alpha: 1)))
-                        }
+                            HStack{
+                                Text("Hey")
+                                    .font(.largeTitle).fontWeight(.bold).foregroundColor(.black).opacity(0.6)
+                                Text("\(UserDefaults.standard.string(forKey: "name") ?? "Name")")
+                                    .font(.largeTitle).bold().foregroundColor(Color(#colorLiteral(red: 0, green: 1, blue: 0.8056185842, alpha: 1)))
+                            }
                             Spacer()
                             Image(systemName: "gearshape.fill")
-                                 .resizable()
-                                 .aspectRatio(contentMode: .fit)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                                 .frame(width: geowidth/11 , height: geowidth/11).offset(x: -20).foregroundColor(Color.gray).shadow(color: .black, radius: 0).onTapGesture {
                                     withAnimation {
                                         let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                                                    impactHeavy.impactOccurred()
-                                    viewRouter.currentPage = .settings
+                                        impactHeavy.impactOccurred()
+                                        
+                    
+                                        viewRouter.currentPage = .settings
                                         
                                     }
                                 }
                         }
                         
-                        
-                        
-                        
                     }
                     .padding()
+
                     
-                    
-                    ZStack(){
-                        
-                        Rectangle().frame(height: geometry.size.height/5).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white)
-                        
-                        LastColdSore()
-                        
-                    }
+                    LastColdSore().frame(width: geometry.size.width, height: 170)
                     
                     Text("Your Insights")
-                        .font(.title3).bold().padding().padding(.top, 5)
+                        .font(.title3).fontWeight(.bold).foregroundColor(.black).opacity(0.6).padding().padding(.top, 5)
                     
-                    ZStack(){
-                        
-                        Rectangle().frame(height: (geometry.size.height/2.5 + CGFloat(numDifferentSores*40))).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white)
-                        
-                        Insights()
-                        
-                    }
+
+                    Insights().frame(height: size)
                     
-                    Rectangle().frame(height: geometry.size.height/10).cornerRadius(15).padding().foregroundColor(.white)
+                    
+                    
+                    Rectangle().frame(height: geometry.size.height/10).cornerRadius(15).padding().foregroundColor(.white).opacity(0)
                     
                     
                 }.frame(width: geowidth)
+                    
+                        
                 
             }.frame(height: geometry.size.height)
             
@@ -88,27 +81,49 @@ struct HomePage: View {
         }
         
     }
+    func runReview(){
+        if #available(iOS 14.0, *) {
+                if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                    SKStoreReviewController.requestReview(in: scene)
+                }
+            } else {
+                SKStoreReviewController.requestReview()
+            }
+    }
+    
+    func checkforReview(){
+        var reviewCheck = UserDefaults.standard.integer(forKey: "reviewCheck")
+        if (reviewCheck == 8){
+            runReview()
+            reviewCheck = 0
+            UserDefaults.standard.set(reviewCheck, forKey: "reviewCheck")
+        } else {
+            reviewCheck += 1
+            UserDefaults.standard.set(reviewCheck, forKey: "reviewCheck")
+        }
+    }
     
     func loadData(){
         numSores = UserDefaults.standard.integer(forKey: "numSores")
         print("Home Page: There is currently: \(numSores) sores in the system, unique: \(numDifferentSores)")
         
-       
+        checkforReview()
+        
         //Retrieving Items
         
         if (numSores > 0){
-        do {
-            let storedObjItem = UserDefaults.standard.object(forKey: "coldSoreObjects")
-            let objects = try JSONDecoder().decode([ColdSore].self, from: storedObjItem as! Data)
-            coldSoreObjects = objects
-            print("Retrieved items: \(coldSoreObjects)")
-            indexOfMostRecentSore = findIndexOfMostRecentSore()
-        } catch let err {
-            print(err)
-        }
+            do {
+                let storedObjItem = UserDefaults.standard.object(forKey: "coldSoreObjects")
+                let objects = try JSONDecoder().decode([ColdSore].self, from: storedObjItem as! Data)
+                coldSoreObjects = objects
+                print("Retrieved items: \(coldSoreObjects)")
+                indexOfMostRecentSore = findIndexOfMostRecentSore()
+            } catch let err {
+                print(err)
+            }
         }
         
-
+        
         withAnimation(){
             
             viewRouter.currentPage = .home
@@ -129,7 +144,7 @@ struct HomePage: View {
         }
         return smallestIndex;
     }
-
+    
     
 }
 

@@ -9,31 +9,54 @@ import ElegantCalendar
 import SwiftUI
 
 
-struct ColdSoreCalendar: View, Equatable, ElegantCalendarDelegate, ElegantCalendarDataSource {
+struct ColdSoreCalendar: View, /*Equatable,*/ ElegantCalendarDelegate, ElegantCalendarDataSource {
     
     @ObservedObject private var calendarManager: ElegantCalendarManager
 
-    
-
     let coldSoresByDay: [Date: [ColdSore]]
-
+   
     
     @State private var calendarTheme: CalendarTheme = CalendarTheme(primary: Color(#colorLiteral(red: 0, green: 0.9658375382, blue: 0.7308886647, alpha: 1)))
 
     init(coldsores: [ColdSore]) {
         
         
-        let startDate = Date().addingTimeInterval(TimeInterval(60 * 60 * 24 * (-24 * 36)))
-        let endDate = Date().addingTimeInterval(TimeInterval(60 * 60 * 24 * (0 * 36)))
+        let sortedsores = coldSoreObjects.sorted(by: { $0.date < $1.date })
+        var startDate : Date
+        var endDate : Date
+        var initMonth : Date
         
+        if (sortedsores.count >= 1){
+            startDate = sortedsores[0].date
+            initMonth = sortedsores[0].date
+            
+            if (sortedsores.count == 1){
+                endDate = startDate
+            } else {
+                endDate = sortedsores[sortedsores.count-1].date
+                initMonth = sortedsores[sortedsores.count-1].date
+            }
+            
+            endDate = endDate.addingTimeInterval(TimeInterval(60 * 60 * 24 * (1 * 36)))
+            startDate = startDate.addingTimeInterval(TimeInterval(60 * 60 * 24 * (-1 * 36)))
+            
+        } else {
+            startDate = Date().addingTimeInterval(TimeInterval(60 * 60 * 24 * (-2 * 36)))
+            endDate = Date()
+            initMonth = Date()
+        }
+        
+        if (endDate > Date()){
+            endDate = Date()
+        }
+
         let configuration = CalendarConfiguration(
             calendar: currentCalendar,
             startDate: startDate,
             endDate: endDate)
 
         calendarManager = ElegantCalendarManager(
-            configuration: configuration,
-            initialMonth: Date())
+            configuration: configuration, initialMonth: initMonth)
 
         coldSoresByDay = Dictionary(grouping: coldsores, by: { currentCalendar.startOfDay(for: $0.date) })
 
@@ -48,13 +71,16 @@ struct ColdSoreCalendar: View, Equatable, ElegantCalendarDelegate, ElegantCalend
         }
     }
     
-    static func == (lhs: Self, rhs: Self) -> Bool {
+   /* static func == (lhs: Self, rhs: Self) -> Bool {
         return (lhs.coldSoresByDay as NSDictionary).isEqual(to: rhs.coldSoresByDay)
       
     }
-    
+    */
+  
     
 }
+
+
 
 
 
@@ -68,7 +94,7 @@ extension ColdSoreCalendar {
 
     func calendar(viewForSelectedDate date: Date, dimensions size: CGSize) -> AnyView {
        let startOfDay = currentCalendar.startOfDay(for: date)
-       return CalendarElement(coldsores: coldSoresByDay[startOfDay] ?? []).erased
+        return CalendarElement(coldSoresByDay: coldSoresByDay[startOfDay] ?? []).erased
     }
     
     
@@ -78,7 +104,7 @@ extension ColdSoreCalendar {
 
 struct ColdSoreCalendar_Previews: PreviewProvider {
     static var previews: some View {
-        let coldsores = [ColdSore(date: Date(), reason: reasons[4]), ColdSore(date: Date(), reason: reasons[2])]
+        let coldsores = [ColdSore(date: Date().addingTimeInterval(TimeInterval(60 * 60 * 24 * ( -3 * 36))), reason: reasons[4]), ColdSore(date: Date().addingTimeInterval(TimeInterval(60 * 60 * 24 * ( -1 * 36))), reason: reasons[2])]
         ColdSoreCalendar(coldsores: coldsores)
     }
 }

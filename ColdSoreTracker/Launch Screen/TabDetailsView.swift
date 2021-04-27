@@ -72,7 +72,7 @@ struct TabDetailsView: View {
                                     Text(reason)
                                         .foregroundColor(.black)
                                 })
-                }).padding(.top, -30)
+                }).padding(.top, -30).frame(width: 330)
                 .onChange(of: selectedReason) { newValue in
                     UserDefaults.standard.set((selectedReason), forKey: "firstSoreReason")
                     print("Changed how it was first triggered to \(selectedReason)")
@@ -96,7 +96,11 @@ struct TabDetailsView: View {
                     //saving coldsore
                     
                     coldSoreObjects.removeAll()
-                    coldSoreObjects.append(ColdSore(date: UserDefaults.standard.value(forKey: "firstSoreDate") as! Date , reason: UserDefaults.standard.string(forKey: "firstSoreReason") ?? "Unknown"))
+                    
+                    if (UserDefaults.standard.value(forKey: "firstSoreDate") == nil){
+                        UserDefaults.standard.set(Date(), forKey: "firstSoreDate")
+                    }
+                    coldSoreObjects.append(ColdSore(date: UserDefaults.standard.value(forKey: "firstSoreDate") as! Date, reason: UserDefaults.standard.string(forKey: "firstSoreReason") ?? "Unknown"))
                 
                     
                     
@@ -137,7 +141,7 @@ struct TabDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack(){
             GradientView()
-            TabDetailsView(index: 0)
+            TabDetailsView(index: 3)
         }
         
     }

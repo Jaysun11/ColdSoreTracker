@@ -12,7 +12,7 @@ struct NameHeader: View {
     var body: some View {
         ZStack{
             Image(systemName: "chevron.left").resizable()
-                .aspectRatio(contentMode: .fit).frame(width: 30, height: 30, alignment: .center).position(x:25, y:30).foregroundColor(.gray).opacity(0.7).onTapGesture(perform: {
+                .aspectRatio(contentMode: .fit).frame(width: 30, height: 30, alignment: .center).position(x:25, y:30).foregroundColor(.black).opacity(0.6).onTapGesture(perform: {
                     withAnimation{
                         let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                                     impactHeavy.impactOccurred()
@@ -28,7 +28,7 @@ struct NameHeader: View {
         }.frame(height: 60)
         
         
-        Text("Update Name").font(.largeTitle/*@END_MENU_TOKEN@*/).foregroundColor(Color.gray).bold().multilineTextAlignment(.leading).padding([.top, .leading]).padding(/*@START_MENU_TOKEN@*/.top)
+        Text("Update Name").font(.largeTitle/*@END_MENU_TOKEN@*/).fontWeight(.bold).foregroundColor(.black).opacity(0.6).multilineTextAlignment(.leading).padding([.top, .leading]).padding(/*@START_MENU_TOKEN@*/.top)
     }
 }
 
@@ -50,7 +50,7 @@ struct ChangeName: View {
                 
                 NameHeader()
                 
-                Text("What would you like us to call you?").font(.title3).foregroundColor(Color.gray).bold().multilineTextAlignment(.leading).padding(.leading).padding(.top, 1.0)
+                Text("What would you like us to call you?").font(.title3).foregroundColor(.black).opacity(0.6).multilineTextAlignment(.leading).padding(.leading).padding(.top, 1.0)
                 
                 HStack{
                     

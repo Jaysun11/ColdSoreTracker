@@ -31,11 +31,13 @@ var indexOfMostRecentSore = 0;
 
 var coldSoreObjects = [ColdSore]()
 
-struct ColdSore : Codable{
+struct ColdSore : Codable, Identifiable{
     var id = UUID()
     
     var date: Date
     var reason: String
+    
+    var colorindex = Int.random(in: 0..<10)
     
     func getDate() -> Date{
         return date

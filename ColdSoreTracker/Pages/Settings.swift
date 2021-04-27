@@ -20,24 +20,24 @@ struct buttonView : View{
             Image(systemName: systemIconName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40).foregroundColor(.gray).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                .frame(width: 40, height: 40).foregroundColor(.black).opacity(0.6)
             
             ZStack{
             Rectangle().opacity(0).frame(width: width/1.4, height: 50, alignment: .leading).contentShape(Rectangle())
             Text(tabName)
                 .font(.title2)
                 .multilineTextAlignment(.leading)
-                .foregroundColor(.gray)
+                .foregroundColor(.black).opacity(0.6)
                 .padding(.leading, 5.0)
-                .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).frame(width: width/1.4, height: 50, alignment: .leading)
+                .frame(width: width/1.4, height: 50, alignment: .leading)
             }
             
             
             Image(systemName: "chevron.right")
-                .padding(.trailing, 10.0).foregroundColor(.gray).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                .padding(.trailing, 10.0).foregroundColor(.black).opacity(0.6)
                
         }
-        .padding(.leading, 10.0)
+        .padding(.leading, 10.0).frame(width: screen.size.width-30)
         
        
     }
@@ -54,10 +54,9 @@ struct Settings: View {
                 
             let width = geometry.size.width
             
-            
         ZStack{
                 Image(systemName: "chevron.left").resizable()
-                    .aspectRatio(contentMode: .fit).frame(width: 30, height: 30, alignment: .center).position(x:25, y:30).foregroundColor(.gray).opacity(0.7).onTapGesture(perform: {
+                    .aspectRatio(contentMode: .fit).frame(width: 30, height: 30, alignment: .center).position(x:25, y:30).foregroundColor(.black).opacity(0.5).onTapGesture(perform: {
                         withAnimation{
                             let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                                         impactHeavy.impactOccurred()
@@ -76,7 +75,7 @@ struct Settings: View {
             
         VStack(alignment: .leading){
             
-            Text("Settings").font(.largeTitle).foregroundColor(.gray).padding(.top, 60.0).padding(/*@START_MENU_TOKEN@*/.leading, 10.0/*@END_MENU_TOKEN@*/)
+            Text("Settings").font(.largeTitle).fontWeight(.semibold).foregroundColor(.black).opacity(0.6).padding(.top, 60.0).padding(/*@START_MENU_TOKEN@*/.leading, 10.0/*@END_MENU_TOKEN@*/)
             
             buttonView(systemIconName: "person.circle", tabName: "Update Name", width: width).padding(.top, 10.0).onTapGesture(perform: {
                 withAnimation{

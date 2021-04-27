@@ -87,7 +87,7 @@ struct DonutChart : View {
                 }
                 if indexOfTappedSlice != -1 {
                     Text(String(format: "%.2f", Double(charDataObj.chartData[indexOfTappedSlice].percent))+"%")
-                        .font(.title)
+                        .font(.title).foregroundColor(.black).opacity(0.6)
                 }
             }
             .frame(width: 200, height: 250)
@@ -107,12 +107,12 @@ struct DonutChart : View {
                                     .onTapGesture {
                                         indexOfTappedSlice = indexOfTappedSlice == index ? -1 : index
                                     }
-                                    .font(indexOfTappedSlice == index ? .headline : .subheadline)
+                                    .font(indexOfTappedSlice == index ? .headline : .subheadline).foregroundColor(.black).opacity(0.6)
                             }
                             
                         }
                         .padding(8)
-                        .frame(width: 300, alignment: .leading)
+                        .frame(width: 280, alignment: .leading)
             
             
             

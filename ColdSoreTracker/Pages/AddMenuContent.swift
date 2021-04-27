@@ -12,117 +12,215 @@ struct AddMenuContent: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @State private var selectedReason: String = "Unknown"
     @State private var newSoreDate: Date = Date()
+    let colour = 0
     
     var body: some View {
         
-        
         GeometryReader { geometry in
             
+           ZStack{
+                Rectangle().cornerRadius(15).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white).padding(.horizontal).frame(width:screen.size.width)
+                VStack(alignment: .center){
             
-            VStack(alignment: .center){
-                
-                Text("When was this cold sore?").font(.title2).padding(.top, 50)
-                
-                DatePicker("", selection: $newSoreDate, in: ...Date(), displayedComponents: .date).frame(width: 330) .datePickerStyle(WheelDatePickerStyle()).foregroundColor(.black)
-                
-                
-                Text("What caused it?").font(.title2)
-                
-                Picker("Select an option", selection: $selectedReason, content: {
-                    ForEach(reasons, id: \.self, content: { reason in
-                        Text(reason)
-                            .foregroundColor(.black)
-                    })
-                }).padding(.top, -30)
-                
-                Button(action: {buttonAction(date: newSoreDate, reason: selectedReason)},
-                       
-                       label: {
-                        Text("Add").fontWeight(.heavy).padding().frame(width: 150, height: 44).background(Color(#colorLiteral(red: 0, green: 1, blue: 0.8056185842, alpha: 1)).opacity(0.57)).cornerRadius(12).padding(.horizontal).foregroundColor(.white)
-                       })
-                
-                
-            }.frame(width: geometry.size.width, height: geometry.size.height/1.32)
-            
-            
-        }
-    }
-    
-    func buttonAction(date: Date,reason: String){
-        
-        //Save Cold Sore
-        saveColdSore(date: date, reason: reason)
-        getNumUniques()
-        
-        withAnimation(){
-            
-            viewRouter.currentPage = .home
-        }
-        
-    }
-    
-    func saveColdSore(date: Date,reason: String){
-        
-        let newSore = ColdSore(date: date, reason: reason)
-        
-        coldSoreObjects.append(newSore)
-    
-        
-        //Storing Items
-        if let encoded = try? JSONEncoder().encode(coldSoreObjects) {
-            UserDefaults.standard.set(encoded, forKey: "coldSoreObjects")
-        }
-        
-        numSores = numSores + 1
-        
-        UserDefaults.standard.set(numSores, forKey: "numSores")
-        
-        indexOfMostRecentSore = findIndexOfMostRecentSore()
-        
-        
-        
-        
-        
-    }
-    func findIndexOfMostRecentSore() -> Int{
-        //current smallest index
-        var index = 0;
-        var lastSore = coldSoreObjects[0]
-        var smallestIndex = 0;
-        
-        for sore in coldSoreObjects {
-            if (lastSore.getDate() <= sore.getDate()){
-                lastSore = sore;
-                smallestIndex = index
-            }
-            index = index + 1
-        }
-        return smallestIndex;
-    }
-    
-    func getNumUniques(){
-        
-        let mappedItems = coldSoreObjects.map { ($0.reason, 1) }
-        let _counts = Dictionary(mappedItems, uniquingKeysWith: +)
-        var index = 0
-        
-        
-        for reason in reasons {
-            if _counts[reason] != nil {
-
-                index+=1
+                    ZStack{
+                        
+                        Rectangle().fill(Color.black.opacity(0.2)).cornerRadius(/*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                        cellSore.padding(.leading, 10)
+                        
+                    }.frame(width: geometry.size.width/1.5, height: 50, alignment: .center)
                     
-            } else {
-               
-            }
-        }
-
-        numDifferentSores = index;
-       
-        UserDefaults.standard.set(numDifferentSores, forKey: "numUniqueSores")
+                    Text("Update Coldsore Date").font(.body).foregroundColor(.black).opacity(0.6).padding(.top, 30)
+                    
+                    DatePicker("", selection: $newSoreDate, in: ...Date(), displayedComponents: .date).foregroundColor(.gray).onChange(of: newSoreDate, perform: { value in
+                        //soreEditing.date = newSoreDate
+                    }).accentColor(Color.black.opacity(0.6)).frame(width: 120, height: 35, alignment: .center).padding(.bottom).labelsHidden()
+                    
+                    
+                    Text("Update Cause").font(.body).foregroundColor(.black).opacity(0.6)
+                    
+                    
+                    ZStack{
+                        Rectangle().fill(Color.black.opacity(0.07)).cornerRadius(7).frame(width: 220, height: 35)
+                        Picker(selectedReason, selection: $selectedReason, content: {
+                            ForEach(reasons, id: \.self, content: { reason in
+                                Text(reason)
+                            })
+                        }).padding(.vertical, 20).foregroundColor(Color.black.opacity(0.6)).onChange(of: selectedReason, perform: { value in
+                            
+                        }).pickerStyle(MenuPickerStyle()).accentColor(/*@START_MENU_TOKEN@*/.gray/*@END_MENU_TOKEN@*/).frame(width: 220)
+                    }
+                    
+                    
+                    
+                     Button(action: {buttonAction(date: newSoreDate, reason: selectedReason)},
+                            
+                            label: {
+                             Text("Add Cold Sore").fontWeight(.heavy).padding().frame(width: 180, height: 44).background(Color(#colorLiteral(red: 0, green: 1, blue: 0.8056185842, alpha: 1)).opacity(0.5)).cornerRadius(12).padding(.horizontal).foregroundColor(.white)
+                            }).padding(.top, 10)
+                     Spacer()
+                
+                
+            }.padding(.top, 20)
+        }.frame(width: geometry.size.width, height: 370, alignment: .top)
     }
     
 }
+    
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }
+    
+    
+    var cellSore: some View {
+        
+        HStack {
+            
+            HStack{
+                
+                RoundedRectangle(cornerRadius: 8)
+                    .frame(width: 5, height: 40, alignment: .leading).foregroundColor(chartColours[colour])
+                VStack(alignment: .leading){
+                    Text("Reason: \(selectedReason)")
+                        .padding(.horizontal)
+                    Text((dateFormatter.string(from: newSoreDate)))
+                        .font(.system(size: 16))
+                        .lineLimit(1).padding(.horizontal)
+                }
+            }
+            
+            Spacer()
+            
+            
+        }.frame(height: 40)
+        .padding(.vertical, 10)
+        
+    }
+
+
+func buttonAction(date: Date,reason: String){
+    
+    //Save Cold Sore
+    saveColdSore(date: date, reason: reason)
+    getNumUniques()
+    
+    withAnimation(){
+        
+        viewRouter.currentPage = .home
+    }
+    
+}
+
+func saveColdSore(date: Date,reason: String){
+    
+    let newSore = ColdSore(date: date, reason: reason)
+    
+    coldSoreObjects.append(newSore)
+    
+    
+    //Storing Items
+    if let encoded = try? JSONEncoder().encode(coldSoreObjects) {
+        UserDefaults.standard.set(encoded, forKey: "coldSoreObjects")
+    }
+    
+    numSores = numSores + 1
+    
+    UserDefaults.standard.set(numSores, forKey: "numSores")
+    
+    indexOfMostRecentSore = findIndexOfMostRecentSore()
+    
+    
+    
+    
+    
+}
+func findIndexOfMostRecentSore() -> Int{
+    //current smallest index
+    var index = 0;
+    var lastSore = coldSoreObjects[0]
+    var smallestIndex = 0;
+    
+    for sore in coldSoreObjects {
+        if (lastSore.getDate() <= sore.getDate()){
+            lastSore = sore;
+            smallestIndex = index
+        }
+        index = index + 1
+    }
+    return smallestIndex;
+}
+
+func getNumUniques(){
+    
+    let mappedItems = coldSoreObjects.map { ($0.reason, 1) }
+    let _counts = Dictionary(mappedItems, uniquingKeysWith: +)
+    var index = 0
+    
+    
+    for reason in reasons {
+        if _counts[reason] != nil {
+            
+            index+=1
+            
+        } else {
+            
+        }
+    }
+    
+    numDifferentSores = index;
+    
+    UserDefaults.standard.set(numDifferentSores, forKey: "numUniqueSores")
+}
+
+
+
+}
+
+
+/*
+ 
+ 
+ 
+ 
+ 
+ 
+ ZStack(){
+ Rectangle().cornerRadius(15).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white).padding().frame(width:screen.size.width)
+ GeometryReader { g in
+ VStack(alignment: .center){
+ 
+ Text("When was this cold sore?").font(.title2).foregroundColor(.black).opacity(0.6)
+ 
+ DatePicker("", selection: $newSoreDate, in: ...Date(), displayedComponents: .date).frame(width: 330) .datePickerStyle(WheelDatePickerStyle())
+ 
+ 
+ Text("What caused it?").font(.title2).foregroundColor(.black).opacity(0.6)
+ 
+ Picker("Select an option", selection: $selectedReason, content: {
+ ForEach(reasons, id: \.self, content: { reason in
+ Text(reason)
+ .foregroundColor(.black).opacity(0.6)
+ })
+ }).padding(.top, -30).frame(width: screen.size.width-30)
+ 
+ Button(action: {buttonAction(date: newSoreDate, reason: selectedReason)},
+ 
+ label: {
+ Text("Add").fontWeight(.heavy).padding().frame(width: 100, height: 44).background(Color(#colorLiteral(red: 0, green: 1, blue: 0.8056185842, alpha: 1)).opacity(0.57)).cornerRadius(12).foregroundColor(.white)
+ })
+ 
+ }.padding(.top).padding(.top)
+ 
+ }
+ }
+ */
+
+
+
+
+
 
 
 
