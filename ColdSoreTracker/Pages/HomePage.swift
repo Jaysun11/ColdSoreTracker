@@ -73,7 +73,7 @@ struct HomePage: View {
                 
             }.frame(height: geometry.size.height)
             
-            
+            Banner().position(x: geometry.size.width/2, y: geometry.size.height-25)
         }
         
         .onAppear(){
@@ -93,7 +93,7 @@ struct HomePage: View {
     
     func checkforReview(){
         var reviewCheck = UserDefaults.standard.integer(forKey: "reviewCheck")
-        if (reviewCheck == 8){
+        if (reviewCheck == 10){
             runReview()
             reviewCheck = 0
             UserDefaults.standard.set(reviewCheck, forKey: "reviewCheck")
@@ -104,6 +104,7 @@ struct HomePage: View {
     }
     
     func loadData(){
+        paddingAmountForMenuBar = 50
         numSores = UserDefaults.standard.integer(forKey: "numSores")
         print("Home Page: There is currently: \(numSores) sores in the system, unique: \(numDifferentSores)")
         

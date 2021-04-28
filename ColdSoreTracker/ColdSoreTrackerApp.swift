@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 //TESTING SAVING COLD SORES
 
@@ -17,9 +18,17 @@ extension UserDefaults {
 }
 //TESTING SAVIGN COLDSORES
 
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        return true
+    }
+}
+
 @main
 struct ColdSoreTrackerApp: App {
-    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var viewRouter = ViewRouter()
     
     var body: some Scene {

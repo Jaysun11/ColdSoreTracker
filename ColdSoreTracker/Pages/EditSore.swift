@@ -57,10 +57,11 @@ struct EditBody: View {
                        }).padding(.top, 10)
                 Spacer()
                 
-                
+               
             }.padding(.top, 20)
             }.frame(width: geometry.size.width, height: 370, alignment: .top)
             
+            Banner().position(x: geometry.size.width/2, y: geometry.size.height-25)
             
         }
     }

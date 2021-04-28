@@ -38,6 +38,7 @@ struct MotherView: View {
                 }
     
                 if (viewRouter.currentPage != .launch && viewRouter.currentPage != .settings && viewRouter.currentPage != .changeName && viewRouter.currentPage != .aboutUs && viewRouter.currentPage != .privacypolicy && viewRouter.currentPage != .change && viewRouter.currentPage != .add){
+                    
                     MenuBar()
                 }
                 

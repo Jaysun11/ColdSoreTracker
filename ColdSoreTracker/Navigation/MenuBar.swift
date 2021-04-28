@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+var paddingAmountForMenuBar = 50
 
 struct MenuBar: View {
     
@@ -24,6 +25,7 @@ struct Menubar: View{
     
     @EnvironmentObject var viewRouter: ViewRouter
     let width, height: CGFloat
+ 
         
     var body: some View {
         
@@ -58,7 +60,7 @@ struct Menubar: View{
             TabBarIcon(viewRouter: viewRouter, assignedPage: .calendar, width: width/3.9, height: width/12, systemIconName: "calendar", tabName: "Calendar")
         
             
-            }.padding(.vertical, 8.0).background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color(red: 0.9607843137254902, green: 0.9490196078431372, blue: 0.9607843137254902)/*@END_MENU_TOKEN@*/).clipShape(Capsule()).shadow(radius: 10, x:0, y:5).position(x: width/2, y: height - width/8)
+            }.padding(.vertical, 8.0).background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color(red: 0.9607843137254902, green: 0.9490196078431372, blue: 0.9607843137254902)/*@END_MENU_TOKEN@*/).clipShape(Capsule()).shadow(radius: 10, x:0, y:5).position(x: width/2, y: height - width/8-CGFloat(paddingAmountForMenuBar))
             
             
         //END OF MENU BAR ------------------------------
@@ -88,9 +90,15 @@ struct TabBarIcon: View {
                 .frame(width: width, height: height)
                
         }.onTapGesture {
+            
             withAnimation{
                 let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                             impactHeavy.impactOccurred()
+                if (assignedPage == .home){
+                    paddingAmountForMenuBar = 50
+                } else {
+                    paddingAmountForMenuBar = 0
+                }
            viewRouter.currentPage = assignedPage
             }
         }.foregroundColor(viewRouter.currentPage != assignedPage ? .gray : .black)

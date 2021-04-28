@@ -16,7 +16,7 @@ struct AddMenu: View {
     
     
     var body: some View {
-        
+        GeometryReader { g in
         
         VStack{
             ZStack{
@@ -50,9 +50,10 @@ struct AddMenu: View {
             
             AddMenuContent().padding(.top, 20)
             
-            
+           
         }
-        
+            Banner().position(x: g.size.width/2, y: g.size.height-25)
+        }
         
     }
     
