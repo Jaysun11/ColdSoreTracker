@@ -7,5 +7,7 @@ This application will provide you a much needed method of managing and visualisi
 
 Cold Sore Tracker allows you to add, edit and delete cold sores, track and visualise their cause and view each sore on an interactive calendar for reference.
 
+Find the application on the app store here: https://apps.apple.com/us/app/cold-sore-tracker/id1565110712?ign-mpt=uo%3D2
+
 For Support, feedback and enquiries, please reach out to:
   coldsoretracker@gmail.com
