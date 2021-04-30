@@ -103,7 +103,7 @@ struct AboutUs: View {
             }
             }
         
-            
+            Banner().position(x: geometry.size.width/2, y: geometry.size.height-25)
             
         }
         

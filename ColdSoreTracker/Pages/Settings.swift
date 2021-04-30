@@ -117,7 +117,7 @@ struct Settings: View {
             
             
         }.padding(.all).lineSpacing(15)
-            
+            Banner().position(x: geometry.size.width/2, y: geometry.size.height-25)
             
             
         }

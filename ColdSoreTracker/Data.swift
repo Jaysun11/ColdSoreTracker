@@ -17,7 +17,7 @@ struct ChartData {
 
 var soreEditing: ColdSore = ColdSore(date: Date(), reason: "Mock")
 
-let tabs = [Tab(title:"Welcome To \nCold Sore Tracker", text: "A unique application designed to help you keep track of and avoid cold sores"), Tab(title:"Lets get to know eachother", text: ""), Tab(title : "", text: ""), Tab(title: "", text: ""), Tab(title:"", text:"")]
+let tabs = [Tab(title:"Welcome To \nCold Sore Tracker", text: "A unique application designed to help you keep track of and avoid cold sores"), Tab(title:"Lets get to know eachother", text: ""), Tab(title : "", text: ""), Tab(title: "", text: ""), Tab(title: "", text: "")]
 
 let reasons = ["Unknown", "Stress", "Impact", "Dry lips (sun/wind/cold)", "Weakened Immune System", "Hormonal Changes", "Other"]
 

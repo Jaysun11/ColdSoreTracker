@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+var checkKeyboard = 0
 
 struct LaunchScreenButtonView: View {
     @EnvironmentObject var viewRouter: ViewRouter
@@ -14,7 +15,8 @@ struct LaunchScreenButtonView: View {
     @State var selectedReason: String = "Unknown"
     @State var lastSore: Date = Date()
     @State var name : String = ""
-
+    
+    
     
     
     var body: some View {
@@ -39,14 +41,21 @@ struct LaunchScreenButtonView: View {
     }
     
    func buttonAction(){
-
+   
         
        withAnimation{
             
             if (selection < 4){
                 if (selection == 1){
                     if (!(UserDefaults.standard.string(forKey: "name")!.isEmpty)){
-                        selection += 1
+                        
+                        if (checkKeyboard >= 1){
+                            selection = 2
+                        } else {
+                            hideKeyboard()
+                            checkKeyboard += 1
+                        }
+                        
                     }
                 } else {
                     selection += 1

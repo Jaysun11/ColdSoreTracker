@@ -105,6 +105,7 @@ struct HomePage: View {
     
     func loadData(){
         paddingAmountForMenuBar = 50
+        //paddingAmountForMenuBar = 0
         numSores = UserDefaults.standard.integer(forKey: "numSores")
         print("Home Page: There is currently: \(numSores) sores in the system, unique: \(numDifferentSores)")
         

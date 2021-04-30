@@ -7,6 +7,7 @@
 
 import SwiftUI
 var paddingAmountForMenuBar = 50
+//var paddingAmountForMenuBar = 0
 
 struct MenuBar: View {
     

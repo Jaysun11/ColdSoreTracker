@@ -43,7 +43,7 @@ struct PrivacyPolicy: View {
                 
                 
             }
-            
+         
         }
         
     }

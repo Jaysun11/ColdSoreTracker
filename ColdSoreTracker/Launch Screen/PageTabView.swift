@@ -18,7 +18,7 @@ struct PageTabView: View {
                 TabDetailsView(index: index)
             }
         }
-       .tabViewStyle(PageTabViewStyle())
+       .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
 }
 

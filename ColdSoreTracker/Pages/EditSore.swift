@@ -13,7 +13,7 @@ struct EditBody: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @State private var selectedReason: String = "Unknown"
     @State private var newSoreDate: Date = Date()
-    
+
     
     var body: some View {
         
@@ -45,7 +45,7 @@ struct EditBody: View {
                         })
                     }).padding(.vertical, 20).foregroundColor(Color.black.opacity(0.6)).onChange(of: selectedReason, perform: { value in
                         
-                    }).pickerStyle(MenuPickerStyle()).accentColor(/*@START_MENU_TOKEN@*/.gray/*@END_MENU_TOKEN@*/).frame(width: 220)
+                    }).pickerStyle(MenuPickerStyle()).accentColor(/*@START_MENU_TOKEN@*/.gray/*@END_MENU_TOKEN@*/).frame(width: 220, height: 40)
                 }
                 
                 
@@ -63,6 +63,9 @@ struct EditBody: View {
             
             Banner().position(x: geometry.size.width/2, y: geometry.size.height-25)
             
+        }.onAppear(){
+            selectedReason = soreEditing.reason
+            newSoreDate = soreEditing.date
         }
     }
     
