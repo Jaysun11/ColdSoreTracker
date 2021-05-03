@@ -18,7 +18,9 @@ struct PageTabView: View {
                 TabDetailsView(index: index)
             }
         }
-       .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+       .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never)).onTapGesture {
+        self.hideKeyboard()
+    }
     }
 }
 

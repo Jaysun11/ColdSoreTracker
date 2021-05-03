@@ -13,6 +13,7 @@ struct EditBody: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @State private var selectedReason: String = "Unknown"
     @State private var newSoreDate: Date = Date()
+    @State private var newSoreDuration: Int = 0
 
     
     var body: some View {
@@ -48,6 +49,22 @@ struct EditBody: View {
                     }).pickerStyle(MenuPickerStyle()).accentColor(/*@START_MENU_TOKEN@*/.gray/*@END_MENU_TOKEN@*/).frame(width: 220, height: 40)
                 }
                 
+                HStack{
+                    Text("Duration (time to heal)").font(.body).foregroundColor(.black).opacity(0.6)
+                    Text("optional").font(.caption).fontWeight(.thin).foregroundColor(.black).opacity(0.6)
+                }.padding(.top, 10)
+                
+                ZStack{
+                    Rectangle().fill(Color.black.opacity(0.07)).cornerRadius(7).frame(width: 220, height: 35)
+                    Picker("\(newSoreDuration) days", selection: $newSoreDuration, content: {
+                        ForEach(1...14, id:\.self){ i in
+                                            Text("\(i) days")
+                                        }
+                    }).padding(.vertical, 20).foregroundColor(Color.black.opacity(0.6)).onChange(of: selectedReason, perform: { value in
+                        
+                    }).pickerStyle(MenuPickerStyle()).accentColor(/*@START_MENU_TOKEN@*/.gray/*@END_MENU_TOKEN@*/).frame(width: 220)
+                }
+                
                 
                 
                 Button(action: {updatebuttonAction(date: newSoreDate, reason: selectedReason)},
@@ -66,12 +83,19 @@ struct EditBody: View {
         }.onAppear(){
             selectedReason = soreEditing.reason
             newSoreDate = soreEditing.date
+            newSoreDuration = soreEditing.duration ?? 0
         }
     }
     
     func updateColdSore(date: Date,reason: String){
+        var newSore: ColdSore
+        if (newSoreDuration != 0){
+            newSore = ColdSore(date: date, reason: reason, duration: newSoreDuration)
+        }else {
+            newSore = ColdSore(date: date, reason: reason)
+        }
         
-        var newSore = ColdSore(date: date, reason: reason)
+        
         newSore.colorindex = soreEditing.colorindex
         
         coldSoreObjects.removeAll(where: {
@@ -166,9 +190,13 @@ struct EditBody: View {
                 VStack(alignment: .leading){
                     Text("Reason: \(selectedReason)")
                         .padding(.horizontal)
-                    Text((dateFormatter.string(from: newSoreDate)))
-                        .font(.system(size: 16))
-                        .lineLimit(1).padding(.horizontal)
+                    HStack(alignment: .bottom){
+                        Text((dateFormatter.string(from: newSoreDate)))
+                            .font(.system(size: 16))
+                            .lineLimit(1).padding(.horizontal)
+                        Text("Duration: \(newSoreDuration) days")
+                            .font(.caption2).padding(.bottom, 2).padding(.leading, -10)
+                    }
                 }
             }
             
@@ -223,7 +251,7 @@ struct EditSore: View {
                 
                 
                 
-                EditBody().padding(.top, 20)
+                EditBody().padding(.top, 0)
             }
         }
         

@@ -13,6 +13,7 @@ struct TabDetailsView: View {
     @State private var selectedReason: String = "Unknown"
     @State private var lastSore: Date = Date()
     @State private var name : String = ""
+    @State private var newSoreDuration: Int = 0
     
     
     
@@ -95,8 +96,40 @@ struct TabDetailsView: View {
                         }).pickerStyle(MenuPickerStyle()).accentColor(/*@START_MENU_TOKEN@*/.gray/*@END_MENU_TOKEN@*/).frame(width: 220, height: 40)
                     }
             }.padding(.bottom, 25)
-                
+            
             case 4:
+                
+                VStack{
+                    
+                    VStack{
+                        Image("LogoTrans").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/).frame(width: 250, height: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding(.bottom, -25.0).offset(x: 0, y: -30)
+                        Text("Cold Sore Tracker").font(.headline).bold().multilineTextAlignment(.center).offset(y:-65)
+                    }.frame(width:350, height: 250, alignment: .center).padding(.bottom, -25)
+                    
+            
+            Text("How Long Did You Have It?").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).bold().multilineTextAlignment(.center).padding(.bottom, 5).padding(.top, 10)
+                    
+                    HStack{
+                        Text("Duration (time to heal)").font(.body).foregroundColor(.black).opacity(0.27)
+                        Text("optional").font(.caption).fontWeight(.thin).foregroundColor(.black).opacity(1)
+                    }.padding(.top, 10)
+                    
+                    ZStack{
+                        Rectangle().fill(Color.black.opacity(0.07)).cornerRadius(7).frame(width: 220, height: 35)
+                        Picker("\(newSoreDuration) days", selection: $newSoreDuration, content: {
+                            ForEach(1...14, id:\.self){ i in
+                                                Text("\(i) days")
+                                            }
+                        }).padding(.vertical, 20).foregroundColor(Color.black.opacity(0.6)).onChange(of: newSoreDuration, perform: { value in
+                            UserDefaults.standard.set(newSoreDuration, forKey: "firstSoreDuraion")
+                        }).pickerStyle(MenuPickerStyle()).accentColor(/*@START_MENU_TOKEN@*/.gray/*@END_MENU_TOKEN@*/).frame(width: 220)
+                    }
+                    
+                    
+                }
+                
+                
+            case 5:
                 VStack(){
                     Text("Thats all!").font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/).bold().multilineTextAlignment(.center).padding(.bottom, 5)
                     
@@ -114,7 +147,10 @@ struct TabDetailsView: View {
                     if (UserDefaults.standard.value(forKey: "firstSoreDate") == nil){
                         UserDefaults.standard.set(Date(), forKey: "firstSoreDate")
                     }
-                    coldSoreObjects.append(ColdSore(date: UserDefaults.standard.value(forKey: "firstSoreDate") as! Date, reason: UserDefaults.standard.string(forKey: "firstSoreReason") ?? "Unknown"))
+                    
+                
+                    
+                    coldSoreObjects.append(ColdSore(date: UserDefaults.standard.value(forKey: "firstSoreDate") as! Date, reason: UserDefaults.standard.string(forKey: "firstSoreReason") ?? "Unknown", duration: UserDefaults.standard.integer(forKey: "firstSoreDuraion") ))
                     
                     
                     
@@ -162,7 +198,7 @@ struct TabDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack(){
             GradientView()
-            TabDetailsView(index: 3)
+            TabDetailsView(index: 4)
         }
         
     }

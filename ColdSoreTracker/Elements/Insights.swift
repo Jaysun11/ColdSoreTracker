@@ -5,31 +5,44 @@
 //  Created by Jason Tubman on 6/4/21.
 //
 
+
 import SwiftUI
+
+struct InsightsView: View {
+
+    var body: some View {
+        ZStack{
+            if (numSores == 0){
+                Text("Track your first sore to display insights").foregroundColor(.black).opacity(0.6).frame(width: screen.size.width-30)
+            } else {
+                TypesOfSoresChart()
+            }
+        }
+    }
+}
 
 struct Insights: View {
     @EnvironmentObject var viewRouter: ViewRouter
-    let size : CGFloat = CGFloat(330 + (numDifferentSores * 40))
     
+    @Binding var selection: Int
+    
+   
+
     var body: some View {
-        GeometryReader { geometry in
             
-           
             ZStack{
-                Rectangle().frame(height: size).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white)
                 
-                    if (numSores == 0){
-                        Text("Track your first sore to display insights").foregroundColor(.black).opacity(0.6).frame(width: screen.size.width-30)
-                    } else {
-                        TypesOfSoresChart()
-                    }
+                TabView(selection: $selection) {
+                    InsightsView().tag(0)
                     
+                    AverageHealingTime().tag(1)//.padding(.bottom, CGFloat(numDifferentSores * 35))
+                   
                     
+                }.tabViewStyle(PageTabViewStyle()).indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 
-            }
-        }.frame(height: size)
-    }
-    
+                
+            }.frame(height: height)
+        }
     
     
     
@@ -38,6 +51,9 @@ struct Insights: View {
 
 struct Insights_Previews: PreviewProvider {
     static var previews: some View {
-        Insights()
+        Insights(selection: Binding.constant(2))
     }
 }
+
+
+

@@ -12,14 +12,17 @@ struct HomePage: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
     private var name : String = "Unknown"
-    
+    @State private var selection = 0
+    @State private var selection2 = 0
+
+   
     
     var body: some View {
-        
+    
         
         GeometryReader { geometry in
             let geowidth = geometry.size.width
-            let size : CGFloat = CGFloat(330 + (numDifferentSores * 40))
+            
             
             ScrollView{
                
@@ -59,17 +62,24 @@ struct HomePage: View {
                     Text("Your Insights")
                         .font(.title3).fontWeight(.bold).foregroundColor(.black).opacity(0.6).padding().padding(.top, 5)
                     
-
-                    Insights().frame(height: size)
+                    ZStack{
+                         Rectangle().frame(height: height ).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white)
+                        Insights(selection: $selection).frame(height: height)
+                    }
+                       
+                    Text("Cold Sore Management")
+                        .font(.title3).fontWeight(.bold).foregroundColor(.black).opacity(0.6).padding().padding(.top, 5)
                     
-                    
-                    
-                    Rectangle().frame(height: geometry.size.height/10).cornerRadius(15).padding().foregroundColor(.white).opacity(0)
+          
+                    ZStack{
+                         Rectangle().frame(height: 390 ).cornerRadius(15).padding(.horizontal).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).foregroundColor(.white).padding(.bottom)
+                        Preventions(selection: $selection2).frame(height: 390)
+                    }
                     
                     
                 }.frame(width: geowidth)
                     
-                        
+                Rectangle().frame(height: geometry.size.height/5).foregroundColor(.clear)
                 
             }.frame(height: geometry.size.height)
             
@@ -78,6 +88,7 @@ struct HomePage: View {
         
         .onAppear(){
             loadData()
+            height = CGFloat(370 + (numDifferentSores * 40))
         }
         
     }
@@ -124,7 +135,8 @@ struct HomePage: View {
                 print(err)
             }
         }
-        
+        height = CGFloat(370 + (numDifferentSores * 40))
+        calculateAverageDuration()
         
         withAnimation(){
             
@@ -148,6 +160,19 @@ struct HomePage: View {
     }
     
     
+}
+
+func calculateAverageDuration(){
+    var ave: CGFloat = 0
+    var counter: CGFloat = 0
+    for sore in coldSoreObjects{
+        if (sore.duration ?? nil != nil){
+            ave += CGFloat(sore.duration ?? 0)
+            counter += 1
+        }
+    }
+    averageduration = ave/counter
+    UserDefaults.standard.set(averageduration, forKey: "aveDuration")
 }
 
 

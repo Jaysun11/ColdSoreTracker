@@ -33,6 +33,7 @@ struct CalendarElement: View {
     
     var coldsoresList: some View {
         
+        
         GeometryReader { g in
         
         List{
@@ -47,9 +48,13 @@ struct CalendarElement: View {
                             VStack(alignment: .leading){
                                 Text("Reason: \(coldsore.reason)")
                                     .padding(.horizontal)
-                                Text((dateFormatter.string(from: coldsore.getDate())))
+                                HStack(alignment: .bottom){
+                                    Text((dateFormatter.string(from: coldsore.getDate())))
                                     .font(.system(size: 16))
                                     .lineLimit(1).padding(.horizontal)
+                                    Text("Duration: \(coldsore.getDuration())")
+                                        .font(.caption2).padding(.bottom, 2).padding(.leading, -10)
+                                }
                             }
                         }
                         

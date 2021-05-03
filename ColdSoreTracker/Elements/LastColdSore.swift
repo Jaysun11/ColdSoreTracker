@@ -40,6 +40,7 @@ struct LastColdSore: View {
                 }
                 
             } else {
+                
                 let mostRecentSore = coldSoreObjects[indexOfMostRecentSore]//Get most recent sore
                 let daysago = mostRecentSore.getDaysAgo()
                 let date = (dateFormatter.string(from: mostRecentSore.getDate()))
@@ -81,7 +82,6 @@ struct LastColdSore: View {
         
     }
 }
-
 
 
 

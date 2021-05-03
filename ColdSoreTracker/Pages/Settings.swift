@@ -47,6 +47,7 @@ struct buttonView : View{
 struct Settings: View {
     
     @State private var showingAlert = false
+    @State private var showingAlert2 = false
     @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
         
@@ -77,7 +78,7 @@ struct Settings: View {
             
             Text("Settings").font(.largeTitle).fontWeight(.semibold).foregroundColor(.black).opacity(0.6).padding(.top, 60.0).padding(/*@START_MENU_TOKEN@*/.leading, 10.0/*@END_MENU_TOKEN@*/)
             
-            buttonView(systemIconName: "person.circle", tabName: "Update Name", width: width).padding(.top, 10.0).onTapGesture(perform: {
+            buttonView(systemIconName: "person", tabName: "Update Name", width: width).padding(.top, 10.0).onTapGesture(perform: {
                 withAnimation{
                     let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                                 impactHeavy.impactOccurred()
@@ -94,20 +95,37 @@ struct Settings: View {
                 }
             })
             
-    
-            
-            buttonView(systemIconName: "trash.circle", tabName: "Reset Data", width: width).onTapGesture(perform: {
+            buttonView(systemIconName: "calendar.badge.minus", tabName: "Clear Cold Sores", width: width).onTapGesture(perform: {
                 let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                             impactHeavy.impactOccurred()
                 showingAlert = true
             }).alert(isPresented:$showingAlert) {
+                Alert(
+                    title: Text("Delete Cold Sores?"),
+                    message: Text("\nThere is no way to undo this action"),
+                    primaryButton: .destructive(Text("Reset")) {
+                        print("Resetting...")
+                        
+                        reset()
+                    },
+                    secondaryButton: .cancel(){}
+           
+                )
+            }
+    
+            
+            buttonView(systemIconName: "trash", tabName: "Factory Reset", width: width).onTapGesture(perform: {
+                let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                            impactHeavy.impactOccurred()
+                showingAlert2 = true
+            }).alert(isPresented:$showingAlert2) {
                 Alert(
                     title: Text("Reset All App Data?"),
                     message: Text("\nThere is no way to undo this action"),
                     primaryButton: .destructive(Text("Reset")) {
                         print("Resetting...")
                         
-                        reset()
+                        factoryReset()
                     },
                     secondaryButton: .cancel(){}
            
@@ -151,8 +169,36 @@ struct Settings: View {
         }
         
     }
+    func factoryReset(){
+        
+        withAnimation{
+            //Check if the values have been entered on this
+            //Uncomment this
+            
+            indexOfMostRecentSore = 0
+            numSores = 0
+            coldSoreObjects = [ColdSore]()
+            numDifferentSores = 0
+            
+            UserDefaults.resetDefaults()
+            
+            
+            
+            viewRouter.currentPage = .onboarding
+            
+        }
+        
+    }
     
     
+}
+
+extension UserDefaults {
+    static func resetDefaults() {
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+    }
 }
 
 struct Settings_Previews: PreviewProvider {

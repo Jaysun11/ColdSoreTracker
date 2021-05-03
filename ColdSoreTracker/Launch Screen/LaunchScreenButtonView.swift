@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-var checkKeyboard = 0
 
 struct LaunchScreenButtonView: View {
     @EnvironmentObject var viewRouter: ViewRouter
@@ -21,7 +20,7 @@ struct LaunchScreenButtonView: View {
     
     var body: some View {
         
-        if (selection < 4 && selection >= 0){
+        if (selection < 5 && selection >= 0){
             
             Button(action: {buttonAction()},
                 
@@ -29,10 +28,11 @@ struct LaunchScreenButtonView: View {
                 Text("Continue").fontWeight(.heavy).padding().frame(width: 150, height: 44).background(Color.black.opacity(0.27)).cornerRadius(12).padding(.horizontal).foregroundColor(.white)
                 })
             
-        } else if (selection == 4){
+        } else if (selection == 5){
             
             Button(action: {StartTracking()},
                 label: {
+                    
                 Text("Start Tracking").fontWeight(.heavy).padding().frame(width: 200, height: 44).background(Color.black.opacity(0.27)).cornerRadius(12).padding(.horizontal).foregroundColor(.white)
             })
             
@@ -42,27 +42,14 @@ struct LaunchScreenButtonView: View {
     
    func buttonAction(){
    
-        
        withAnimation{
             
-            if (selection < 4){
-                if (selection == 1){
-                    if (!(UserDefaults.standard.string(forKey: "name")!.isEmpty)){
-                        
-                        if (checkKeyboard >= 1){
-                            selection = 2
-                        } else {
-                            hideKeyboard()
-                            checkKeyboard += 1
-                        }
-                        
-                    }
-                } else {
-                    selection += 1
-                }
+            if (selection < 5){
+                selection += 1
             }
 
         }
+    
     }
     
     func StartTracking(){

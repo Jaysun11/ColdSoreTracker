@@ -48,7 +48,7 @@ struct AddMenu: View {
             }.frame(height:60)
             
             
-            AddMenuContent().padding(.top, 20)
+            AddMenuContent().padding(.top, 0)
             
            
         }
