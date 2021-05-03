@@ -116,7 +116,7 @@ See the [open issues](https://github.com/jaysun11/ColdSoreTracker/issues) for a 
 <!-- CONTACT -->
 ## Contact
 
-Jason Tubman - [Cold Sore Tracker](coldsoretracker@gmail.com) - email
+Jason Tubman - coldsoretracker@gmail.com - email
 
 Project Link: [Cold Sore Tracker](https://github.com/Jaysun11/ColdSoreTracker)
 
@@ -125,10 +125,8 @@ Project Link: [Cold Sore Tracker](https://github.com/Jaysun11/ColdSoreTracker)
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
-* []()
-* []()
-
+* [ElegantCalendar](https://github.com/ThasianX/ElegantCalendar)
+* [ElegantPages](https://github.com/ThasianX/ElegantPages)
 
 
 
