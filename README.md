@@ -6,8 +6,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/jaysun11/coldsoretracker">
+    <img src="images/Logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Cold Sore Tracker</h3>
@@ -145,3 +145,4 @@ Project Link: [Cold Sore Tracker](https://github.com/Jaysun11/ColdSoreTracker)
 [license-url]: https://github.com/jaysun11/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/jason-tubman/
+[product-screenshot]: images/screenshot.png
